@@ -44,45 +44,56 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       backgroundColor: Colors.white,
       body: Center(
-        child: Column(
+          child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            FutureBuilder<GetQuestions>(
-              future: futureQuestions,
-              builder: (context, snapshot) {
-                if (snapshot.hasData){
-                  return Text(
-                    snapshot.data.eventConductedBy,
-                    style: Theme.of(context).textTheme.headline4,
-                    softWrap: true,
-                  );
-                }
-                else if (snapshot.hasError){
-                  return Text("${snapshot.error}");
-                }
-                return CircularProgressIndicator(semanticsValue: "Getting Text",);
-              }
+            Expanded(
+              child: Card(
+                elevation: 10,
+                child: FutureBuilder<GetQuestions>(
+                future: futureQuestions,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData){
+                      return Column(
+                        
+                        children: <Widget>[
+                          Text(
+                            snapshot.data.eventConductedBy,
+                            style: Theme.of(context).textTheme.headline5,
+                            //softWrap: true,
+                          )
+                        ],
+                      );
+                    }
+                    else if (snapshot.hasError){
+                      return Text("${snapshot.error}");
+                    }
+                    return CircularProgressIndicator(semanticsValue: "Getting Text",);
+                  }
+                ),
+              ),
             ),
-            SizedBox(width: 20.0, height: 100.0),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    OptionButtonState('A', "Hey", false),
-                    OptionButtonState('B', "Hey", true),
-                  ],
-                ),
-                SizedBox(width: 20.0, height:20.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    OptionButtonState('C', "Hey", false),
-                    OptionButtonState('D', "Hey", false),
-                  ],
-                ),
-              ],
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      OptionButtonState('A', "Hey", false),
+                      OptionButtonState('B', "Hey", true),
+                    ],
+                  ),
+                  SizedBox(width: 20.0, height:20.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      OptionButtonState('C', "Hey", false),
+                      OptionButtonState('D', "Hey", false),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
